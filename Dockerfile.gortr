@@ -27,3 +27,6 @@ USER rtr
 COPY --from=builder ${src_dir}/gortr ${src_dir}/cmd/gortr/cf.pub /
 COPY --from=keygen /private.pem /private.pem
 ENTRYPOINT ["./gortr"]
+
+# Flags needed for use within DN42; https://dn42.eu/howto/ROA-slash-RPKI
+CMD -cache https://dn42.burble.com/roa/dn42_roa_46.json -verify=false -checktime=false -bind :8082
